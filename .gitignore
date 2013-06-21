@@ -1,0 +1,11 @@
+# Ignore IDE meta files
+.idea
+
+# Ignore OS files
+.DS_Store
+
+# Ignore SASS files
+.sass-cache
+
+# Ignore Node Modules
+node_modules
