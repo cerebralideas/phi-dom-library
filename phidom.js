@@ -2,7 +2,7 @@
 	"use strict";
 
 	var name = 'Phidom',
-	old$ = global.$,
+	oldphi = global.phi,
 	oldN = global[name],
 
 	Phidom = function Phidom(matchedElements) {
@@ -14,7 +14,7 @@
 			this.length = matchedElements.length;
 		},
 
-	phidom = function(selector) {
+	phi = function(selector) {
 			var matchedElements;
 			if (typeof selector === 'string') {
 
@@ -33,17 +33,17 @@
 
 
 	// Create a global reference to our library.
-	global.$ = global[name] = phidom;
+	global.phi = global[name] = phi;
 
 	// Calling .noConflict will restore the global $ to its previous value.
 	// Passing true will do that AND restore the full global name as well.
 	// Returns a reference to your library's function.
-	$.noConflict = function( all ) {
+	phi.noConflict = function( all ) {
 		if ( all ) {
 			global[name] = oldN;
 		}
-		global.$ = old$;
-		return $;
+		global.phi = oldphi;
+		return phi;
 	};
 
 
@@ -164,7 +164,7 @@
 			}
 		});
 
-		return phidom(allChildren);
+		return phi(allChildren);
 	};
 
 
