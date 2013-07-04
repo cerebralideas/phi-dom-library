@@ -181,10 +181,3 @@
 
 
 }(this));
-
-
-$('div').children();
-$('div').addClass('blue');
-$('div').hasClass('blue');
-$('div').toggleClass('blue');
-$('div').toggleClass('red');
