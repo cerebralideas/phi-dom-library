@@ -5,32 +5,60 @@
 	oldphi = global.phi,
 	oldN = global[name],
 
-	Phidom = function Phidom(matchedElements) {
+	phi = function Phi(selector) {
 
-			for (var i = 0, len = matchedElements.length; i < len; i++) {
-				this[i] = matchedElements[i];
+			if (!(this instanceof phi)) {
+				return new phi(selector);
 			}
 
-			this.length = matchedElements.length;
-		},
+			var selection;
 
-	phi = function(selector) {
-			var matchedElements;
 			if (typeof selector === 'string') {
 
-				matchedElements= document.querySelectorAll(selector);
-			} else {
-				matchedElements = selector;
+				// Use Native ID if it is an ID
+				if (/^#[\S]+$/.test(selector)) {
+					selection = document.getElementById(selector.substr(1));
+					if(selection) {
+						this[0] = selection;
+						this.length = 1;
+						return this;
+					} else {
+						return [];
+					}
+				}
 
+				// Use Native ClassName if it is a class name
+				if (/^\.[\S]+$/.test(selector)) {
+
+					selection = document.getElementsByClassName(selector.replace(/\./g, ' '));
+				} else {
+
+					// Use QSA for anything else
+					selection = document.querySelectorAll(selector);
+				}
+				
+			} else {
+
+				selection = selector;
 			}
 
-			return new Phidom(matchedElements);
+			this.length = selection.length
+
+			if (this.length) {
+				for (var i = 0, len = this.length; i < len; i++) {
+					this[i] = selection[i];
+				}
+			} else {
+				this[0] = selection;
+				this.length = 1;
+			}
+
+			return this;
+
 		},
 
 	// Feature Tests
-
 	hasClassList = document.documentElement.classList;
-
 
 	// Create a global reference to our library.
 	global.phi = global[name] = phi;
@@ -46,8 +74,9 @@
 		return phi;
 	};
 
+	phi.fn = phi.prototype;
 
-	Phidom.prototype.each = function each(fn) {
+	phi.fn.each = function each(fn) {
 		var matchedElements = this;
 		for (var i = 0, len = this.length; i < len; i++) {
 
@@ -57,7 +86,6 @@
 
 		return this;
 	};
-
 
 	// ClassList manipulations
 
@@ -111,8 +139,7 @@
 		return classListFn;
 	}
 
-
-	Phidom.prototype.hasClass = function hasClass(className) {
+	phi.fn.hasClass = function hasClass(className) {
 		
 		// match all elements for class
 		var matchedElements = this;
@@ -131,20 +158,20 @@
 		return true;
 	};
 
-	Phidom.prototype.addClass = function addClass(className) {
+	phi.fn.addClass = function addClass(className) {
 		
 		var addFn = classList('add', className);
 		return this.each(addFn);
 	};
 
-	Phidom.prototype.removeClass = function removeClass(className) {
+	phi.fn.removeClass = function removeClass(className) {
 
 		var removeFn = classList('remove', className);
 		return this.each(removeFn);
 	};
 
 
-	Phidom.prototype.toggleClass = function toggleClass(className) {
+	phi.fn.toggleClass = function toggleClass(className) {
 
 		var toggleFn = classList('toggle', className);
 		return this.each(toggleFn);
@@ -152,7 +179,7 @@
 
 	// Children Selector
 
-	Phidom.prototype.children = function() {
+	phi.fn.children = function() {
 		var allChildren = [];
 
 		this.each(function(el) {
@@ -167,17 +194,29 @@
 		return phi(allChildren);
 	};
 
+	phi.fn.dataAttr = function(attr, val) {
+		console.log(attr, val);
+		if(val) {
+			return this.each(function(el) {
+				el.setAttribute('data-' + attr, val);
+			});
+		} else {
+			var values = [];
 
+			this.each(function(el) {
+				values.push(el.getAttribute('data-' + attr));
+			});
 
+			return values;
+		}
+	};
 
-
-	Phidom.prototype.push = function() {
+	phi.fn.push = function() {
 		//console.log(this);
 	};
 
-	Phidom.prototype.splice = function() {
+	phi.fn.splice = function() {
 		//console.log(this);
 	};
-
 
 }(this));

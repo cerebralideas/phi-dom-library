@@ -22,16 +22,27 @@
 <body>
 	<div class="red"></div>
 	<div id="id"></div>
-	<div class="blue"><div class="child-l1"></div><div class="child-l1"></div></div>
+	<div class="blue red"><div class="child-l1"></div><div class="child-l1"></div></div>
 
 
  	<script src="phidom.js"></script>
  	<script>
 			
-			phi('div').addClass('blue');
-			phi('div').hasClass('blue');
-			phi('div').toggleClass('blue');
-			phi('div').toggleClass('red');
+			// phi('div').addClass('blue');
+			// phi('div').hasClass('blue');
+			// phi('div').toggleClass('blue');
+			// phi('div').toggleClass('red');
+
+			console.time('id');
+			//.08 is native
+			var id = phi('.red');
+			console.log(id.dataAttr('modal'));
+			console.log(id.dataAttr('modal', 'balls'));
+			console.log(id.dataAttr('modal'));
+			//document.getElementById('id');
+			console.timeEnd('id');
+			// console.log(phi('#dog'));
+			// phi('.red');
 	</script>
 </body>
 </html>
