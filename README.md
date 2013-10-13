@@ -5,8 +5,8 @@ A polyfill library for phi.
 
 ## Needed features:
 
-- [ ] A fallback for classList: a way of adding, toggling and removing class or classes from a DOM element.
-- [ ] A fallback for hasClass, the jQuery method for testing the existance of a class.
+- [x] A fallback for classList: a way of adding, toggling and removing class or classes from a DOM element.
+- [x] A fallback for hasClass, the jQuery method for testing the existance of a class.
 - [ ] A fallback for accessing data attributes from a DOM element.
 - [ ] A fallback for handling stopPropogation and preventDefault. Josh has already done some work in this area; see his overlay.js.
 - [ ] A more jQuery way of selecting elements. Just wrapping the native getElementById, getElementsByTagName and [querySelectorAll](http://ejohn.org/blog/thoughts-on-queryselectorall/). Just test for the existance of a hash, a dot and just alphanumeric to know which to use.
