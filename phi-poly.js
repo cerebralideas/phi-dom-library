@@ -1,5 +1,25 @@
 (function(global, undefined) {
+	
 	"use strict";
+	
+	/***************
+	 * Polyfill for Object.create()
+	 */
+	if (!Object.create) {
+		
+	    global.Object.create = (function () {
+	    	
+	        function F(){};
+	
+	        return function (o) {
+	            if (arguments.length != 1) {
+	                throw new Error('Object.create implementation only accepts one parameter.');
+	            }
+	            F.prototype = o;
+	            return new F();
+	        }
+	    })();
+	}
 
 	var name = 'Phidom',
 	oldphi = global.phi,
