@@ -5,6 +5,7 @@ A polyfill library for phi.
 
 ## Needed features:
 
+- [ ] A fallback for Object.create(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 - [ ] A fallback for classList: a way of adding, toggling and removing class or classes from a DOM element.
 - [ ] A fallback for hasClass, the jQuery method for testing the existance of a class.
 - [ ] A fallback for accessing data attributes from a DOM element.
